@@ -7,6 +7,9 @@ using Eigen::MatrixXd;
 using Eigen::VectorXd;
 using namespace std;
 
+#define EPS 0.0001 // A very small number
+#define EPS2 0.0000001
+
 class Tools {
 public:
   /**
