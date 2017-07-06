@@ -50,7 +50,8 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   h << rho, theta, rho_dot;
 
   VectorXd y = z - h;
-  // Calculations are essentially the same to the Update function
+  // normalise phi
+  y(1) = atan2(sin(y(1)), cos(y(1)));
   KF(y);
 }
 
@@ -60,9 +61,8 @@ void KalmanFilter::KF(const VectorXd &y){
   MatrixXd S = H_ * P_ * Ht + R_;
   MatrixXd Si = S.inverse();
   MatrixXd K =  P_ * Ht * Si;
-  // New state
+
+  // estimate
   x_ = x_ + (K * y);
-  int x_size = x_.size();
-  MatrixXd I = MatrixXd::Identity(x_size, x_size);
-  P_ = (I - K * H_) * P_;
+  P_ -= K * H_ * P_;
 }
