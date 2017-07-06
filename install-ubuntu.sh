@@ -1,8 +1,7 @@
 #!/bin/bash
 
-#check if its ubuntu 14.04
+#check the ubuntu version
 RELEASE="$(lsb_release -s -r)"
-echo "${RELEASE}"
 
 if [ "$RELEASE" == "14.04" ]; then
   wget http://mirrors.kernel.org/ubuntu/pool/universe/libu/libuv1/libuv1-dev_1.8.0-1_amd64.deb
